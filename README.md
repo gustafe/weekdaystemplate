@@ -1,4 +1,4 @@
-Weekdays template
+# Weekdays template
 
 Simple template for weekdays (Swedish locale)
 
