@@ -21,18 +21,16 @@ my %data;
 for my $mon ( 1 .. 12 ) {
 
     # create a Time::Piece object for the first of the current month (guaranteed to exist)
-    my $first_day
-        = Time::Piece->strptime(
-        sprintf( "%04d-%02d-%02d %02d:%02d", $year, $mon, 1, 12, 0 ), "%Y-%m-%d %H:%M" );
+    my $first_day = Time::Piece->strptime( sprintf( "%04d-%02d-%02d %02d:%02d", $year, $mon, 1, 12, 0 ),
+					   "%Y-%m-%d %H:%M" );
 
     # figure out how many days this month has
     my $end_day = $first_day->month_last_day;
     for my $d ( 1 .. $end_day ) {
 
         # create a new object for every day
-        my $day
-            = Time::Piece->strptime(
-            sprintf( "%04d-%02d-%02d %02d:%02d", $year, $mon, $d, 12, 0 ), "%Y-%m-%d %H:%M" );
+        my $day = Time::Piece->strptime( sprintf( "%04d-%02d-%02d %02d:%02d", $year, $mon, $d, 12, 0 ),
+					 "%Y-%m-%d %H:%M" );
 
         # only include weekdays
         next unless $day->day_of_week > 0 and $day->day_of_week < 6;
