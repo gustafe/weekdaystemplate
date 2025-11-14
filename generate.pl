@@ -20,6 +20,7 @@ for my $mon (1..12) {
     for my $d (1..$end_day) {
 	# create a new object for every day
 	my $day =Time::Piece->strptime(sprintf("%04d-%02d-%02d %02d:%02d", $year, $mon, $d, 12,0), "%Y-%m-%d %H:%M" );
+	# only include weekdays
 	next unless $day->day_of_week > 0 and $day->day_of_week<6;
 	# we use ISO week year ("%G") for the hash key, see
 	# http://johnbokma.com/blog/2019/09/04/iso-week-and-year-in-perl.html
