@@ -25,8 +25,6 @@ use SwedishHolidays qw( swedish_months );
 
 # Swedish week day abbreviations
 Time::Piece::day_list(qw/sön mån tis ons tor fre lör/);
-#Time::Piece::mon_list(qw/Januari Februari Mars April Maj Juni Juli Augusti September Oktober November December/);
-#my @swe_mon = qw/januari februari mars april maj juni juli augusti september oktober november december/;
 
 # user input for year, otherwise current year
 my $t = localtime;
@@ -65,26 +63,21 @@ for my $mon ( 1 .. 12 ) {
 my $data;
 # format for output
 $data->{year}= $year;
-# output the data
-#push @{$data->{content}}, "# Veckokalender för $year\n";
+
 for my $yw ( sort keys %{$year_weeks} ) {
-    # for my $m (sort {$a<=>$b}keys %{$data{$yw}->{mon}}) {
-    # 	say "$m: ". $data{$yw}->{mon}{$m}
-    # }
 
     if (scalar keys %{$year_weeks->{$yw}{mon}} > 1) {
 	push @{$data->{content}},"\n### $yw (".join(' - ', map {swedish_months($_)}sort {$a<=>$b} keys %{$year_weeks->{$yw}{mon}}) . ")\n";
     } else {
 	push @{$data->{content}},  "\n### $yw (".swedish_months((keys %{$year_weeks->{$yw}{mon}})[0]).")\n";
     }
-    
-#    say "\n### $yw\n";
-     for my $d ( @{ $year_weeks->{$yw}{day}} ){
+
+    for my $d ( @{ $year_weeks->{$yw}{day}} ){
          push @{$data->{content}}, sprintf("%s %s  ", $d->date, $d->day);
      }
 }
 
-my $tt = Template->new( {INCLUDE_PATH=>"$Bin/templates", ENCODING     => 'utf8'});
+my $tt = Template->new( {INCLUDE_PATH=>"$Bin/templates", ENCODING => 'utf8'});
 my $out = header( {-type=>'text/markdown',-charset=>'utf-8'} );
 my $template= 'veckodagar.tt';
 $tt->process( $template, $data, \$out, {binmode => ':utf8'}) or die $tt->error();
