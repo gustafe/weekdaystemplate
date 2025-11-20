@@ -1,0 +1,13 @@
+# Veckokalender för [% year %]
+
+Årets veckodagar, grupperade på veckonummer i ISO-format.
+
+Ingen hänsyn är tagen till helgdagar.
+
+Formatet är Markdown, varje dags rad följs av 2 mellanslag.
+
+Inspiration: <https://terokarvinen.com/2021/calendar-txt/>
+
+[% FOREACH line IN content -%]
+[% line %]
+[% END -%]
